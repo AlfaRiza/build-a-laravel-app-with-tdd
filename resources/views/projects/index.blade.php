@@ -10,9 +10,13 @@
     <h1>BirdBoard</h1>
 
     <ul>
-        @foreach ($projects as $project)
-            <li>{{ $project->title }}</li>
-        @endforeach
+        @forelse ($projects as $project)
+            <li>
+                <a href="{{ url('projects/' . $project->id) }}">{{ $project->title }}</a>
+            </li>
+        @empty
+            <li>No Project Yet</li>
+        @endforelse
     </ul>
 </body>
 </html>

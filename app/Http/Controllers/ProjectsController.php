@@ -16,10 +16,19 @@ class ProjectsController extends Controller
     }
 
     /**
+     * show
+     */
+    public function show(){
+        $project = Project::findOrFail(request('project'));
+        return view('projects.show', ['project' => $project]);
+    }
+
+    /**
      * store
      */
     public function store(){
-        Project::create(request(['title','description']));
+        $attributes = request()->validate(['title' => 'required', 'description' => 'required']);
+        Project::create($attributes);
         return redirect('/projects');
     }
 
