@@ -10,7 +10,7 @@
     <h1>BirdBoard</h1>
 
     <ul>
-        @forelse ($projects as $project)
+        @forelse ($projects as $project) 
             <li>
                 <a href="{{ url('projects/' . $project->id) }}">{{ $project->title }}</a>
             </li>
