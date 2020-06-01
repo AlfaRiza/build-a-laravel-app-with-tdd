@@ -26,6 +26,12 @@ class ProjectsController extends Controller
     }
 
     /**
+     * create
+     */
+    public function create(){
+        return view('projects.create');
+    }
+    /**
      * store
      */
     public function store(){
