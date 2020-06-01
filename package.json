@@ -27,5 +27,8 @@
     },
     "dependencies": {
         "tailwindcss": "^1.4.6"
+    },
+    "optionalDependencies": {
+        "fsevents": "^2.1.3"
     }
 }
