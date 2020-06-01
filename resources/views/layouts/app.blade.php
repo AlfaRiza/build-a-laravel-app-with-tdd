@@ -24,9 +24,12 @@
         <nav class="bg-hite navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container mx-auto">
                 {{-- <div class="flex justify-between"> --}}
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                    <h1>
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+                            {{-- {{ config('app.name', 'Laravel') }} --}}
+                        </a>
+                    </h1>
 
                 <div>
                     <!-- Right Side Of Navbar -->
