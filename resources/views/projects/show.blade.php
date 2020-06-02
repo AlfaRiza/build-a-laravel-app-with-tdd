@@ -15,10 +15,16 @@
             <div class="lg:w-3/4 px-3">
                 <div class="mb-8">
                     <h2 class="text-gray-600 text-lg font-normal mb-3">My Project</h2>
-                    <h2 class="card py-3 px-3 mb-3">Lorem Ipsum</h2>
-                    <h2 class="card py-3 px-3 mb-3">Lorem Ipsum</h2>
-                    <h2 class="card py-3 px-3 mb-3">Lorem Ipsum</h2>
-                    <h2 class="card py-3 px-3">Lorem Ipsum</h2>
+
+                    @foreach ($project->tasks as $task)
+                        <h2 class="card py-3 px-3 mb-3">{{ $task->body }}</h2>
+                    @endforeach
+                            <h2 class="card py-3 px-3 mb-3">
+                                <form action="{{ $project->path() . '/tasks' }}" method="POST">
+                                @csrf
+                                    <input type="text" placeholder="Add a New Tasks " class="w-full" name="body">
+                                </form>
+                            </h2>
                 </div>
                 <div class="">
                     <h2 class="text-gray-600 text-lg font-normal">General Notes</h2>
