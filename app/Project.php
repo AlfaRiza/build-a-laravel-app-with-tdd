@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+
+    // use TriggersActivity;
+
     protected $guarded = [];
 
     public function path(){
@@ -20,8 +23,24 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function recordActivity($description){
+
+        $this->activity()->create(compact('description'));
+        // Activity::create([
+        //     'project_id' => $this->id,
+        //     'description' => $type,
+        // ]);
+    }
+
     public function addTask($body){
         return $this->tasks()->create(compact('body'));
+
+        // Activity::create([
+        //     'project_id' => $this->id,
+        //     'description' => 'create_task'
+        // ]);
+
+        // return $task;
     }
 
     public function activity(){
