@@ -2,6 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+// \App\Activity::created(function($project){
+//     \App\Activity::create([
+//         'project_id' => $Project->id,
+//         'description' => 'created',
+//     ]);
+// });
+// \App\Activity::updated(function($project){
+//     \App\Activity::create([
+//         'project_id' => $Project->id,
+//         'description' => 'updated',
+//     ]);
+// });
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +39,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/projects', 'ProjectsController@store');
     
     Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
-    Route::patch('/tasks/{task}', 'ProjectTasksController@update');
+    Route::patch('/projects/{project}/tasks/{task}', 'ProjectTasksController@update');
 
     Route::get('/home', 'HomeController@index')->name('home');
 });
