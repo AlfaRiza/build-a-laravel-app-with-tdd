@@ -5,9 +5,10 @@
     <h1 class="my-5">
         Let's start somethink new
     </h1>
-    <form method="POST" action="{{ url('/projects') }}">
+    <form method="POST" action="{{ $project->path() }}">
         @csrf
-    @include('projects._form', ['project' => new App\Project], ['ButtonText' => 'Create Project'])
+        @method('PATCH')
+    @include('projects._form', ['ButtonText' => 'Update Project'])
     
 </form>
 @endsection

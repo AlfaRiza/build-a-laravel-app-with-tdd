@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -20,6 +21,7 @@ class ManageProjectsTest extends TestCase
 
         $this->get('/projects')->assertRedirect('login');
         $this->get('/projects/create')->assertRedirect('login');
+        $this->get('/projects/edit')->assertRedirect('login');
         $this->get($project->path())->assertRedirect('login');
         $this->post('/projects', $project->toArray())->assertRedirect('login');
     }
@@ -29,7 +31,7 @@ class ManageProjectsTest extends TestCase
      */
     public function a_user_can_create_a_project(){
 
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $this->signIn();
         // $this->actingAs(factory('App\User')->create());
@@ -38,29 +40,75 @@ class ManageProjectsTest extends TestCase
 
         $attributes = [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
+            'notes' => 'General Notes Here'
         ];
 
         $response = $this->post('/projects', $attributes);
+
+        $project = Project::where($attributes)->first();
         
-        $response->assertRedirect(Project::where($attributes)->first()->path());
+        $response->assertRedirect($project->path());
 
         $this->post('/projects', $attributes)->assertRedirect('/projects');
-        $this->assertDatabaseHas('projects', $attributes);
+        // $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes['title']);
+        $this->get($project->path())
+            ->assertSee($attributes['title'])
+            ->assertSee($attributes['description'])
+            ->assertSee($attributes['notes']);
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_update_a_project(){
+        // $this->signIn();
+        
+        // $this->withoutExceptionHandling();
+        
+        // $project = factory('App\Project')->create(['owner_id' => auth()->id()]);
+
+        $project = ProjectFactory::create();
+
+        $this->actingAs($project->owner)->patch($project->path(),$attributes = [
+            'title' => 'Changed',
+            'description' => 'Changed',
+            'notes' => 'Changed'
+        ])->assertRedirect($project->path());
+
+        $this->get($project->path() . '/edit')->assertOk();
+
+        $this->assertDatabaseHas('project',$attributes );
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_update_a_general_projects_general_notes(){
+        $project = ProjectFactory::create();
+
+        $this->actingAs($project->owner)->patch($project->path(),$attributes = [
+            'notes' => 'Changed'
+        ]);
+
+        // $this->get($project->path() . '/edit')->assertOk();
+
+        $this->assertDatabaseHas('project',$attributes );
     }
 
     /**
      * @test
      */
     public function a_user_can_view_their_project(){
-        $this->be(factory('App\User')->create());
-
-        $this->withoutExceptionHandling();
+        // $this->signIn();
         
-        $project = factory('App\Project')->create(['owner_id' => auth()->id()]);
-        $this->get('/projects/' . $project->id)
+        // // $this->withoutExceptionHandling();
+        
+        // $project = factory('App\Project')->create(['owner_id' => auth()->id()]);
+
+        $project = ProjectFactory::create();
+        $this->actingAs($project->owner)->get($project->path())
             ->assertSee($project->title)
             ->assertSee($project->description);
     }
@@ -74,7 +122,7 @@ class ManageProjectsTest extends TestCase
         
         $project = factory('App\Project')->create();
 
-        $this->get($project->path())->assertStatus(403);
+        $this->patch($project->path())->assertStatus(403);
         
     }
 
