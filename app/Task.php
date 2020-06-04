@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 // use App\Providers\Task;
 class Task extends Model
 {
+    use RecordActivity;
+
     protected $guarded = [];
 
     protected $touches = ['project'];
@@ -13,6 +15,8 @@ class Task extends Model
     protected $casts = [
         'completed' => 'boolean'
     ];
+
+    protected $recordableEvents = ['created','deleted'];
 
 
     public function complete(){
@@ -36,18 +40,25 @@ class Task extends Model
         return "/projects/{$this->project->id}/tasks/{$this->id}";
     }
 
-    public function recordActivity($description){
+    // public function recordActivity($description){
 
-        $this->activity()->create([
-            'project_id' => $this->project_id,
-            'description' => $description,
+    //     $this->activity()->create([
+    //         'description' => $description,
+    //         'changes' => $this->activityChanges($description),
+    //         'project_id' => $this->project_id,
             
-        ]);
-    }
+    //     ]);
+    // }
+
+    // public function activityChanges($description){
+    //     // return null;
+    //     if ($this->wasChanged()) {
+    //         return [
+    //             'before' => Arr::except(array_diff($this->old, $this->getAttributes()),'updated_at' ),
+    //             'after' => Arr::except($this->getChanges(), 'updated_at'),
+    //         ];
+    //     }
+    // }
 
 
-
-    public function activity(){
-        return $this->morphMany(Activity::class, 'subject_id')->latest();
-    }
 }
