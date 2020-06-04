@@ -4,3 +4,4 @@
         </h3>
         <div class="text-gray-500">{{ Str::limit($project->description,50,' ...') }}</div>
     </div>
+    

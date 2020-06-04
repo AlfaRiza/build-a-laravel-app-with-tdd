@@ -49,6 +49,12 @@
             </div>
             <div class="lg:w-1/4 px-3">
                 @include('projects.card')
+                {{-- @foreach ($project->activity as $activity) --}}
+                
+                @include('projects.activity.cards')
+                
+                {{-- @endforeach --}}
+
             </div>
         </div>
     </main>
