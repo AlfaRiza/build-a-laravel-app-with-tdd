@@ -9,6 +9,6 @@ class Activity extends Model
     protected $guarded = [];
 
     public function subject(){
-        $this->morphTo();
+        return $this->morphTo();
     }
 }
