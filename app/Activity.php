@@ -13,6 +13,6 @@ class Activity extends Model
     ];
 
     public function subject(){
-        $this->morphTo();
+        return $this->morphTo();
     }
 }

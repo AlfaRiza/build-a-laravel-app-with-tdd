@@ -1,1 +1,1 @@
-Created a {{ $activity->subject->body }}
+Created a {{ $activity->subject_id_type }}

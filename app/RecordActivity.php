@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Support\Arr;
 trait RecordActivity {
     protected $oldAttributes = [];
 
@@ -44,7 +44,7 @@ trait RecordActivity {
     public function activityChanges($description){
         if ($this->wasChanged()) {
             return [
-                'before' => Arr::except(array_diff($this->old, $this->getAttributes()),'updated_at' ),
+                'before' => Arr::except(array_diff($this->oldAttributes, $this->getAttributes()),'updated_at' ),
                 'after' => Arr::except($this->getChanges(), 'updated_at'),
             ];
         }
