@@ -52,6 +52,7 @@
 
                         <button type="submit" class="text-gray-600 no-underline bg-blue-400 hover:bg-blue-500 hover:no-underline py-2 px-4 text-white font-bold py-2 px-4 rounded">Save</button>
                     </form>
+                    @include('projects.errors')
                 </div>
             </div>
             <div class="lg:w-1/4 px-3">
@@ -59,15 +60,11 @@
                 
                 @include('projects.activity.cards')
                 
-
+                @can ('manage', $project)
+                    @include('projects.invite')
+                @endcan
             </div>
         </div>
     </main>
-    @if ($errors->any())
-    <div class="field mt-6">
-        @foreach ($errors->all() as $error)
-            <li class="text-sm text-red-400">{{ $error }}</li>
-        @endforeach
-    </div>
-@endif
+    
 @endsection
