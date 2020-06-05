@@ -8,12 +8,25 @@ trait RecordActivity {
     public function recordActivity($description){
 
         $this->activity()->create([
+            'user_id' => ($this->project ?? $this)->owner_id,
             'description' => $description,
             'changes' => $this->activityChanges($description),
             'project_id' => class_basename($this) === 'Project' ? $this->id : $this->project_id,
         ]);
         
     }
+
+    // public function activityOwner(){
+    //     if(auth()->check()){
+    //         return auth()->user();
+    //     }
+
+    //     if(class_basename($this) === 'Project'){
+    //         return $this->owner_id;
+    //     }
+
+    //     return $this->project->owner_id;
+    // }
 
     public static function bootRecordActivity(){
 

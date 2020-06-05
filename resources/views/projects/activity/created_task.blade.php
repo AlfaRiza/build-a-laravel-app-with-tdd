@@ -1,1 +1,1 @@
-Created a {{ $activity->subject_id_type }}
+{{ $activity->user->name }} Created a {{ $activity->subject_id_type }}
