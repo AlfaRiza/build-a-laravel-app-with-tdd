@@ -6,7 +6,14 @@
             <p class="text-gray-500 text-sm font-normal">
                 <a href="{{ url('/projects') }}" class="text-gray-500 text-sm font-normal no-underline">My Project</a> / {{ $project->title }}
             </p>
-            <a href="{{ $project->path() . '/edit' }}" class="text-gray-600 no-underline bg-blue-400 hover:bg-blue-500 hover:no-underline py-2 px-4 text-white font-bold py-2 px-4 rounded">Edit Projects</a>
+
+            <div class="flex items-center">
+                @foreach ($project->members as $member)
+                    <img src="{{ garvatar_url($member->email) }}"  class="rounded-full w-8 mr-2" alt="{{ $member->name }}'s avatar">
+                @endforeach
+                    <img src="{{ garvatar_url($project->owner->email) }}" alt="{{ $member->name }}'s avatar">
+                <a href="{{ $project->path() . '/edit' }}" class="text-gray-600 no-underline bg-blue-400 hover:bg-blue-500 hover:no-underline py-2 px-4 text-white font-bold py-2 px-4 rounded ml-4">Edit Projects</a>
+            </div>
         </div>
     </header>
 
@@ -49,11 +56,9 @@
             </div>
             <div class="lg:w-1/4 px-3">
                 @include('projects.card')
-                {{-- @foreach ($project->activity as $activity) --}}
                 
                 @include('projects.activity.cards')
                 
-                {{-- @endforeach --}}
 
             </div>
         </div>

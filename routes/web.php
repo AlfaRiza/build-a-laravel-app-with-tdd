@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-
+// function gravaratar_url($email){
+//     $email = md5($email);
+//     return "https://gravatar.com/avatar/{ $email }?s=60&d=https://s3.amazonaws.com/laracast/images/default-square-avatar.jpg";
+// }
 // \App\Activity::created(function($project){
 //     \App\Activity::create([
 //         'project_id' => $Project->id,
