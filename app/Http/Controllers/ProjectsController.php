@@ -37,12 +37,12 @@ class ProjectsController extends Controller
      * store
      */
     public function store(){
-        // $attributes = request()->validate(['title' => 'required',
-        //                                     'description' => 'required',
-        //                                     'notes' => 'min:3'
-        //                                     ]);
-
+        
         $project = auth()->user()->projects()->create($this->validateRequest());
+
+        if(request()->wantsJson()){
+            return ['message' => $project->path()];
+        }
 
         return redirect($project->path());
     }
