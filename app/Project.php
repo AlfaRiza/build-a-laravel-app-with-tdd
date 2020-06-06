@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Collection;
 use App\RecordActivity;
 
 class Project extends Model
@@ -49,6 +50,10 @@ class Project extends Model
     public function addTask($body){
         return $this->tasks()->create(compact('body'));
     }
+    public function addTasks($tasks){
+
+        return $this->tasks()->createtoMany($tasks);
+    }
 
     public function activity(){
         return $this->hasMany(Activity::class)->latest();
@@ -62,4 +67,5 @@ class Project extends Model
     public function members(){
         return $this->belongsToMany(User::class, 'project_members')->withTimestamps();
     }
+    
 }
