@@ -48,8 +48,8 @@ class ManageProjectsTest extends TestCase
 
         $attributes['tasks'] = [
             ['body' => 'Task 1'],
-            ['body'] => 'Task 2'
-        ]
+            ['body' => 'Task 2'] 
+        ];
     }
 
     /**

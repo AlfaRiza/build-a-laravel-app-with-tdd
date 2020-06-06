@@ -11,10 +11,14 @@
               type="text"
               id="title"
               class="border py-1 px-2 text-xs block w-full rounded"
-              :class="errors.title ? 'border-red-300' : 'border-gray-300'"
+              :class="form.errors.title ? 'border-red-300' : 'border-gray-300'"
               v-model="form.title"
             />
-            <span class="text-xs italic text-error" v-if="errors.title" v-text="errors.title[0]"></span>
+            <span
+              class="text-xs italic text-error"
+              v-if="errors.title"
+              v-text="form.errors.title[0]"
+            ></span>
           </div>
           <div class="mb-4">
             <label for="description" class="text-sm block mb-2">description</label>
@@ -24,12 +28,12 @@
               class="border py-1 px-2 text-xs block w-full rounded"
               rows="7"
               v-model="form.description"
-              :class="errors.description ? 'border-red-300' : 'border-gray-300'"
+              :class="form.errors.description ? 'border-red-300' : 'border-gray-300'"
             ></textarea>
             <span
               class="text-xs italic text-error"
               v-if="errors.description"
-              v-text="errors.description[0]"
+              v-text="form.errors.description[0]"
             ></span>
           </div>
         </div>
@@ -68,27 +72,34 @@
 </template>
 
 <script>
+import BirdboardForm form './BirdboardForm';
 export default {
   data() {
     return {
-      form: {
+      form: new BirdboardForm({
         title: "",
         description: "",
         tasks: [{ body: "" }]
-      },
-      errors: {}
+      })
     };
   },
   methods: {
     addTask() {
-      this.form.tasks.push({ value: "" });
+      this.form.tasks.push({ body: "" });
     },
     async submit() {
-      try {
-        location = (await axios.post("/projects", this.form)).data.message;
-      } catch (error) {
-        this.errors = error.response.data.errors;
+      if(! this.form.tasks[0].body){
+        delete this.form.originalData.tasks;
       }
+
+
+      this.form.submit("/projects")
+        .then(resonse => location = response.data.message);
+      // try {
+      //   location = (await axios.post("/projects", this.form)).data.message;
+      // } catch (error) {
+      //   this.errors = error.response.data.errors;
+      // }
     }
   }
 };
