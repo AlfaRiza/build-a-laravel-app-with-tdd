@@ -33,19 +33,22 @@
 
                 <div>
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <div class="flex items-center navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            {{-- <li class="nav-item"> --}}
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
+                            {{-- </li> --}}
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                {{-- <li class="nav-item"> --}}
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
+                                {{-- </li> --}}
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown"> --}}
+                                <theme-swithcer>
+                                    
+                                </theme-swithcer>
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -61,9 +64,9 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>
+                            {{-- </li> --}}
                         @endguest
-                    </ul>
+                    </div>
                 </div>
             {{-- </div> --}}
             </div>
