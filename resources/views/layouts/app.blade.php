@@ -49,21 +49,28 @@
                                 <theme-swithcer>
                                     
                                 </theme-swithcer>
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                <dropdown align="right" width="200px">
+                                    <template v-slot:trigger>
+                                    <button class="nav-link dropdown-toggle" >
+                                        <img 
+                                        width="35"
+                                        class="rounded-full mr-3"
+                                        src="{{ gravatar_url(auth()->user()->email) }}" alt="">
+    
+                                        {{ auth()->user()->name }}
+                                    </button>
+                                </template>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <form id="logout-form" method="POST" action="{{ url('/logout') }}">
+                                    @csrf
+
+                                    <button type="submit" class="block text-default no-underline hover:underline text-sm leading-loose px-4 w-full text-left">Logout</button>
+
+                                </form>
+
+                                    
+                                </dropdown>
                             {{-- </li> --}}
                         @endguest
                     </div>

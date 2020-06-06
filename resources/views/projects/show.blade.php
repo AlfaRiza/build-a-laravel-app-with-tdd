@@ -52,6 +52,7 @@
 
                         <button type="submit" class="text-gray-600 no-underline bg-blue-400 hover:bg-blue-500 hover:no-underline py-2 px-4 text-white font-bold py-2 px-4 rounded">Save</button>
                     </form>
+
                     @include('projects.errors')
                 </div>
             </div>
